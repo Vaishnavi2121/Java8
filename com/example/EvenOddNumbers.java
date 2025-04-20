@@ -75,5 +75,17 @@ public class EvenOddNumbers {
             }
         }
         System.out.println(result1);
+
+        //Filter and return numbers greater than the average
+
+        double avg = list.stream()
+                        .mapToInt(Integer::intValue)
+                                .average()
+                                        .orElse(0);
+        List<Integer> average = list.stream()
+                .filter(x -> x > avg)
+                .collect(Collectors.toList());
+
+        System.out.println(average);
     }
 }

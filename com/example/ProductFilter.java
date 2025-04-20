@@ -31,5 +31,32 @@ public class ProductFilter {
                 .max(Comparator.comparingInt(String::length));
 
         System.out.println(length);
+
+        //filter strings longer than the average length
+        double avg = (int) products.stream()
+                .mapToInt(String::length)
+                .average()
+                .orElse(0);
+
+        List<String> longerThanAverage = products.stream()
+                .filter(s -> s.length() > avg)
+                .collect(Collectors.toList());
+        System.out.println("Average  Length :" +avg);
+        System.out.println("Longer than Average :" +longerThanAverage);
+
+        //filter strings shorter than the average length
+
+        List<String> shorterThaAverage = products.stream()
+                .filter(s -> s.length() < avg)
+                .collect(Collectors.toList());
+        System.out.println("Shorter than Average :" +shorterThaAverage);
+
+        //filter strings that is equals to the average length
+
+        List<String> equalsToAverage = products.stream()
+                .filter(s -> s.length() == avg)
+                .collect(Collectors.toList());
+
+        System.out.println("Equals to Average :" +equalsToAverage);
     }
 }
