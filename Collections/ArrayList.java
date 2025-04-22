@@ -90,6 +90,84 @@ public class ArrayList {
 
         System.out.println(nonNullItems);
 
+//       Find the unique elements from two lists
 
+        List<Integer> list1 = Arrays.asList(1, 2, 3, 4, 5);
+        List<Integer> list2 = Arrays.asList(4, 5, 6, 7, 8);
+
+        Set<Integer> common = new HashSet<>();
+        common.retainAll(list2);
+
+        List<Integer> unique = Stream.concat(list1.stream(),list2.stream())
+                .filter(e->!common.contains(e))
+                .collect(Collectors.toList());
+
+        System.out.println("Unique elements: " + unique);
+
+//        Find common elements between two lists using Set intersection.
+
+        List<Integer> element1 = Arrays.asList(1, 2, 3, 4, 5);
+        List<Integer> element2 = Arrays.asList(4, 5, 6, 7, 8);
+        Set<Integer> commonElements = new HashSet<>(list1);
+        commonElements.retainAll(element2);
+
+        System.out.println("Common elements: " + commonElements);
+
+//        Now return it as list and string
+//        As List
+        List<Integer> commonIntegers = commonElements.stream()
+                .collect(Collectors.toList());
+
+        System.out.println(commonIntegers);
+
+//        as String
+
+        commonElements.stream()
+                .map(e->e.toString())
+                .forEach(System.out::println);
+
+//        Find elements present in one list but not the other (Set difference).
+
+        List<String> names1 = Arrays.asList("Alice", "Bob", "Charlie","Alice");
+        List<String> names2 = Arrays.asList("Bob", "David", "Charlie");
+
+        Set<String> difference1  = new HashSet<>(names1);
+        difference1.removeAll(names2);
+
+
+        System.out.println("elements in names1 but not in names2 " + difference1);
+
+//        Convert a Set to a List and vice versa.
+        Set<String> namesSet = names1.stream()
+                .collect(Collectors.toSet());
+
+        System.out.println(namesSet);
+
+        //now convert it again to list
+
+        List<String> namesList = namesSet.stream()
+                .collect(Collectors.toList());
+
+        System.out.println(namesList);
+
+//        Find the first repeating element in a list using a Set.
+        List<String> ls1 = Arrays.asList("Alice", "Bob", "Charlie","Alice");
+        Set<String> nameSet = new HashSet<>();
+        Set<String> duplicates = new HashSet<>();
+
+        Optional<String> firstCommon = ls1.stream()
+                        .filter(e->!nameSet.add(e))
+                                .findFirst();
+
+        System.out.println("FirstCommon" +firstCommon);
+
+//        first non-repeating
+
+        Optional<String> firstNonRepeating = ls1.stream()
+                .filter(e->!duplicates.contains(ls1))
+                .filter(e->nameSet.add(e))
+                .findFirst();
+
+        System.out.println("First non-repeating element: " + firstNonRepeating.orElse("None"));
     }
 }
